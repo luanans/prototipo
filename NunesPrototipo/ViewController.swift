@@ -8,14 +8,16 @@
 
 import UIKit
 
-let drogas = ["Álcool", "LDS", "Maconha", "Cigarro", "Cocaína", ""]
+let drogas = ["Álcool", "LDS", "Maconha", "Cocaína", ""]
+let sugestao = ["Não extrapola as 3 doses do dia dia não. Na moral\nTenta beber água ou suco no intervalo entre as doses\nNão aceita bebida de estranhos. Se a pessoa tiver um olho no meio da testa, corre!", "Evita misturar com outras drogas/nNão fica perto de espelhos\nUsa sempre acompanhado de um amigo\nBeba bastante água", "Que tal usar um bong ou um vaporizador?\nSe for comer, lembra que demora mais para bater, beleza?", "Evita injetar, que aspirar oferece menos risco\nMas se for o jeito, usa um seringa indiidual.", ""]
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: TVCCellTableViewCell = tableView.dequeueReusableCell(withIdentifier: "celula")! as! TVCCellTableViewCell
         
-        //cell.droga 
+        cell.droga.text!  = drogas[indexPath.row]
+        cell.instrucoes.text! = sugestao[indexPath.row]
         
         return cell
     }
@@ -47,13 +49,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
-    
-    @IBOutlet var TableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        TableView.delegate = self
-        TableView.dataSource = self
+        //TableView.delegate = self
+        //TableView.dataSource = self
         
         
     }
@@ -63,6 +63,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func showPopUp(_ sender: Any) {
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sbPopUpID") as! PopUpViewController
+        self.addChildViewController(popOverVC)
+        popOverVC.view.frame = self.view.frame
+        self.view.addSubview(popOverVC.view)
+        popOverVC.didMove(toParentViewController: self)
+    }
     
 }
 
